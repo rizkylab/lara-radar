@@ -7,14 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Login') - LaraRadar</title>
 
-    <!-- Mazer CSS (primary) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zuramai/mazer@main/dist/assets/compiled/css/app.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zuramai/mazer@main/dist/assets/compiled/css/app-dark.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/zuramai/mazer@main/dist/assets/compiled/css/auth.css">
-
-    <!-- Fallback CSS: Bootstrap + Icons to ensure basic layout when Mazer CDN fails -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Use AdminLTE / Bootstrap 4 / FontAwesome for auth pages (replace Mazer) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
 
     <!-- Local inline fallback styles so login doesn't render plain unstyled text -->
     <style>
@@ -45,10 +41,11 @@
         @yield('content')
     </div>
 
-    <!-- Mazer JS -->
-    <script src="https://cdn.jsdelivr.net/gh/zuramai/mazer@main/dist/assets/static/js/components/dark.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/zuramai/mazer@main/dist/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/zuramai/mazer@main/dist/assets/compiled/js/app.js"></script>
+
+    <!-- jQuery + Bootstrap 4 + AdminLTE JS (for interactive bits like alert dismiss) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 
     @stack('scripts')
 </body>

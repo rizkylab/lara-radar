@@ -49,4 +49,3 @@ class DashboardController extends Controller
         return view('dashboard.index', compact('stats', 'alerts', 'vulnDistribution', 'vulnDistDays', 'severityDistribution', 'unreadAlerts'));
     }
 }
-?>

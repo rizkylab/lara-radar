@@ -41,7 +41,7 @@
                 <div class="auth-left" style="width: 100%; max-width: 420px; padding: 40px;">
                     <div class="auth-logo mb-4">
                         <a href="/">
-                            <h2 class="mb-0"><i class="bi bi-shield-check text-primary"></i><span class="text-primary">Lara</span>Radar</h2>
+                            <img src="{{ asset('logo.png') }}" alt="Logo" style="height:48px;">
                         </a>
                     </div>
                     <h1 class="auth-title mb-1">Log in.</h1>
@@ -49,15 +49,15 @@
 
                     @if(session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <i class="bi bi-exclamation-circle"></i> {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     @endif
 
                     @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <i class="bi bi-check-circle"></i> {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <i class="fas fa-check-circle"></i> {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     </div>
                     @endif
 
@@ -66,7 +66,7 @@
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="email" name="email" class="form-control form-control-xl @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" required autofocus>
                             <div class="form-control-icon">
-                                <i class="bi bi-person"></i>
+                                <i class="fas fa-user"></i>
                             </div>
                             @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -75,15 +75,15 @@
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="password" name="password" class="form-control form-control-xl @error('password') is-invalid @enderror" placeholder="Password" required>
                             <div class="form-control-icon">
-                                <i class="bi bi-shield-lock"></i>
+                                <i class="fas fa-lock"></i>
                             </div>
                             @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-check form-check-lg d-flex align-items-end mb-3">
-                            <input class="form-check-input me-2" type="checkbox" name="remember" id="flexCheckDefault">
-                            <label class="form-check-label text-gray-600" for="flexCheckDefault">Keep me logged in</label>
+                        <div class="form-check d-flex align-items-center mb-3">
+                            <input class="form-check-input" type="checkbox" name="remember" id="flexCheckDefault">
+                            <label class="form-check-label ml-2 text-muted" for="flexCheckDefault">Keep me logged in</label>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
                     </form>

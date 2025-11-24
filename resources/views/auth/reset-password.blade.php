@@ -8,10 +8,7 @@
         <div id="auth-left">
             <div class="auth-logo">
                 <a href="/">
-                    <h2 class="mb-0">
-                        <i class="bi bi-shield-check text-primary"></i>
-                        <span class="text-primary">Lara</span>Radar
-                    </h2>
+                    <img src="{{ asset('logo.png') }}" alt="Logo" style="height:48px;">
                 </a>
             </div>
             <h1 class="auth-title">Reset Password</h1>
@@ -25,7 +22,7 @@
                     <input type="email" name="email" class="form-control form-control-xl @error('email') is-invalid @enderror" 
                            placeholder="Email" value="{{ old('email', $email) }}" required autofocus>
                     <div class="form-control-icon">
-                        <i class="bi bi-envelope"></i>
+                        <i class="fas fa-envelope"></i>
                     </div>
                     @error('email')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -36,7 +33,7 @@
                     <input type="password" name="password" class="form-control form-control-xl @error('password') is-invalid @enderror" 
                            placeholder="New Password" required>
                     <div class="form-control-icon">
-                        <i class="bi bi-shield-lock"></i>
+                        <i class="fas fa-lock"></i>
                     </div>
                     @error('password')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -47,7 +44,7 @@
                     <input type="password" name="password_confirmation" class="form-control form-control-xl" 
                            placeholder="Confirm New Password" required>
                     <div class="form-control-icon">
-                        <i class="bi bi-shield-lock"></i>
+                        <i class="fas fa-lock"></i>
                     </div>
                 </div>
 
