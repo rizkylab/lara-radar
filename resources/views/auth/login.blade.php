@@ -3,96 +3,87 @@
 @section('title', 'Login')
 
 @section('content')
-<div class="row h-100">
-    <div class="col-lg-5 col-12">
-        <div id="auth-left">
-            <div class="auth-logo">
-                <a href="/">
-                    <h2 class="mb-0">
-                        <i class="bi bi-shield-check text-primary"></i>
-                        <span class="text-primary">Lara</span>Radar
-                    </h2>
-                </a>
-            </div>
-            <h1 class="auth-title">Log in.</h1>
-            <p class="auth-subtitle mb-5">Extended Threat Intelligence Platform</p>
-
-            @if(session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-circle"></i> {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-
-            @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle"></i> {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-
-            <form action="{{ route('login') }}" method="POST">
-                @csrf
-                <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="email" name="email" class="form-control form-control-xl @error('email') is-invalid @enderror" 
-                           placeholder="Email" value="{{ old('email') }}" required autofocus>
-                    <div class="form-control-icon">
-                        <i class="bi bi-person"></i>
+<div class="row gx-0" style="min-height:100vh;">
+    <!-- Left visual / hero -->
+    <div class="col-lg-7 d-none d-lg-block" style="background:#161631; display:flex; align-items:center; justify-content:center;">
+        <div style="max-width:720px; width:100%; padding:40px;">
+            <!-- Decorative/illustration area: keep simple gradient circle to mimic sample -->
+            <div style="display:flex; align-items:center; justify-content:center; height:520px;">
+                <div style="width:520px; height:520px; border-radius:50%; background: radial-gradient(circle at 35% 30%, #2b2350 0%, #191532 40%, #0f0d29 100%); display:flex; align-items:center; justify-content:center; box-shadow: inset 0 0 80px rgba(255,80,128,0.05);">
+                    <div style="text-align:center; color:#fff;">
+                        <h1 style="font-size:64px; margin:0; font-weight:800; letter-spacing:2px;">XTI</h1>
+                        <p style="margin-top:6px; opacity:0.85;">Extended Threat Intelligence</p>
                     </div>
-                    @error('email')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
                 </div>
-                <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="password" name="password" class="form-control form-control-xl @error('password') is-invalid @enderror" 
-                           placeholder="Password" required>
-                    <div class="form-control-icon">
-                        <i class="bi bi-shield-lock"></i>
-                    </div>
-                    @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="form-check form-check-lg d-flex align-items-end">
-                    <input class="form-check-input me-2" type="checkbox" name="remember" id="flexCheckDefault">
-                    <label class="form-check-label text-gray-600" for="flexCheckDefault">
-                        Keep me logged in
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
-            </form>
-            <div class="text-center mt-5 text-lg fs-4">
-                <p class="text-gray-600">Don't have an account? <a href="{{ route('register') }}" class="font-bold">Sign up</a>.</p>
-                <p><a class="font-bold" href="{{ route('password.request') }}">Forgot password?</a>.</p>
             </div>
         </div>
     </div>
-    <div class="col-lg-7 d-none d-lg-block">
-        <div id="auth-right" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; height: 100%;">
-            <div class="text-center text-white p-5">
-                <i class="bi bi-shield-check" style="font-size: 120px; opacity: 0.9;"></i>
-                <h1 class="mt-4 mb-3" style="font-size: 3rem; font-weight: 700;">LaraRadar XTI</h1>
-                <h4 class="mb-4" style="font-weight: 300; opacity: 0.9;">Extended Threat Intelligence Platform</h4>
-                <div class="row mt-5">
-                    <div class="col-4">
-                        <div class="p-3">
-                            <i class="bi bi-globe" style="font-size: 2.5rem;"></i>
-                            <p class="mt-2 mb-0">Attack Surface</p>
-                        </div>
+
+    <!-- Right form panel -->
+    <div class="col-lg-5 col-12" style="background:#fff; display:flex; align-items:center;">
+        <div style="width:100%; max-width:420px; margin:40px auto;">
+            <!-- Top small links (privacy/terms/about) -->
+            <div class="d-flex justify-content-end mb-3 d-none d-md-flex" style="gap:18px; font-size:0.9rem; color:#9aa0b1;">
+                <a href="#" class="text-muted">Privacy Policy</a>
+                <a href="#" class="text-muted">Terms of Use</a>
+                <a href="#" class="text-muted">About Us</a>
+            </div>
+
+            <!-- Card -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="text-center mb-3">
+                        <img src="{{ asset('logo.png') }}" alt="logo" style="height:56px; object-fit:contain;">
                     </div>
-                    <div class="col-4">
-                        <div class="p-3">
-                            <i class="bi bi-bug-fill" style="font-size: 2.5rem;"></i>
-                            <p class="mt-2 mb-0">Vulnerabilities</p>
-                        </div>
+
+                    <h5 class="text-center mb-1" style="font-weight:700;">Sign in to platform</h5>
+                    <p class="text-center text-muted mb-4">Enter your credentials to access the dashboard</p>
+
+                    @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                    <div class="col-4">
-                        <div class="p-3">
-                            <i class="bi bi-incognito" style="font-size: 2.5rem;"></i>
-                            <p class="mt-2 mb-0">Dark Web</p>
+                    @endif
+
+                    <form method="POST" action="{{ route('login') }}" novalidate>
+                        @csrf
+
+                        <div class="mb-3 position-relative">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0"><i class="bi bi-person"></i></span>
+                                <input type="email" name="email" class="form-control border-start-0 @error('email') is-invalid @enderror" placeholder="example@socradar.io" value="{{ old('email') }}" required autocomplete="email">
+                            </div>
+                            @error('email') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
                         </div>
+
+                        <div class="d-flex align-items-center justify-content-between mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                <label class="form-check-label ms-1" for="remember">Remember Me</label>
+                            </div>
+                            <div>
+                                <a href="{{ route('password.request') }}" class="text-muted small">Forgot Password ?</a>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-dark w-100 mb-3" style="background:#3f3650; border:none; padding:12px 14px;">Next</button>
+                    </form>
+
+                    <div class="text-center my-3">
+                        <small class="text-muted">Don't have a membership?</small>
                     </div>
+
+                    <a href="{{ route('register') }}" class="btn btn-outline-secondary w-100">Sign Up For Free</a>
                 </div>
+            </div>
+
+            <!-- Footer small -->
+            <div class="text-center mt-4 small text-muted">
+                © {{ date('Y') }} Lara Radar. All rights reserved.
             </div>
         </div>
     </div>

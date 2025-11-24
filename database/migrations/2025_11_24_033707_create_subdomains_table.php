@@ -6,24 +6,31 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('subdomains', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('domain_id');
+            $table->foreignId('domain_id')->constrained()->cascadeOnDelete();
             $table->string('subdomain');
             $table->string('ip_address')->nullable();
-            $table->string('status_code')->nullable();
-            $table->boolean('is_alive')->default(false);
+            $table->integer('status_code')->nullable();
+            $table->string('title')->nullable();
+            $table->string('server')->nullable();
+            $table->integer('content_length')->nullable();
             $table->string('screenshot_path')->nullable();
-            $table->json('dns_records')->nullable();
+            $table->boolean('is_monitored')->default(true);
+            $table->timestamp('last_scanned_at')->nullable();
+            $table->softDeletes();
             $table->timestamps();
-            
-            $table->index('domain_id');
-            $table->index('is_alive');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('subdomains');

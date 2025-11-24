@@ -1,37 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\PasswordResetController;
 
 // Public routes
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-// Authentication routes (temporary - will be replaced with proper auth)
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+// Authentication routes
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'authenticate']);
+    Route::get('/register', [AuthController::class, 'register'])->name('register');
+    Route::post('/register', [AuthController::class, 'store'])->name('register.post');
+    
+    Route::get('/forgot-password', [PasswordResetController::class, 'create'])->name('password.request');
+    Route::post('/forgot-password', [PasswordResetController::class, 'store'])->name('password.email');
+    Route::get('/reset-password/{token}', [PasswordResetController::class, 'edit'])->name('password.reset');
+    Route::post('/reset-password', [PasswordResetController::class, 'update'])->name('password.update');
+});
 
-Route::post('/login', function () {
-    // TODO: Implement authentication
-    return redirect()->route('dashboard');
-})->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
-
-Route::get('/password/request', function () {
-    return view('auth.forgot-password');
-})->name('password.request');
-
-Route::post('/logout', function () {
-    // TODO: Implement logout
-    return redirect()->route('login');
-})->name('logout');
-
-// Protected routes (temporary - will add auth middleware later)
-Route::middleware(['web'])->group(function () {
+// Protected routes
+Route::middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', function () {
         $stats = [

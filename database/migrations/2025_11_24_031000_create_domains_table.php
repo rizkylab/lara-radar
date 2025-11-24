@@ -10,8 +10,8 @@ return new class extends Migration
     {
         Schema::create('domains', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id');
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('company_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('domain');
             $table->string('status')->default('pending'); // pending, scanning, completed, failed
             $table->integer('subdomain_count')->default(0);
@@ -22,8 +22,6 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            $table->index('company_id');
-            $table->index('user_id');
             $table->index('status');
         });
     }

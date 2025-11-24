@@ -6,26 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('botnets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id')->nullable();
             $table->string('ip_address');
             $table->string('botnet_name')->nullable();
-            $table->string('malware_family')->nullable();
-            $table->text('description')->nullable();
-            $table->timestamp('first_seen')->nullable();
-            $table->timestamp('last_seen')->nullable();
-            $table->string('status')->default('active'); // active, inactive, remediated
+            $table->timestamp('last_seen_at')->nullable();
+            $table->string('status')->nullable();
+            $table->string('country')->nullable();
+            $table->string('asn')->nullable();
             $table->timestamps();
-            
-            $table->index('company_id');
-            $table->index('ip_address');
-            $table->index('status');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('botnets');

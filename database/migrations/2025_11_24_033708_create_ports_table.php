@@ -6,25 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('ports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('subdomain_id');
-            $table->integer('port_number');
-            $table->string('protocol')->default('tcp');
+            $table->foreignId('domain_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('subdomain_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->integer('port');
             $table->string('service')->nullable();
+            $table->string('protocol')->nullable();
+            $table->string('state')->nullable();
             $table->string('version')->nullable();
-            $table->string('state')->default('open'); // open, closed, filtered
             $table->text('banner')->nullable();
             $table->timestamps();
-            
-            $table->index('subdomain_id');
-            $table->index('port_number');
-            $table->index('state');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('ports');
