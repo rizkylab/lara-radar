@@ -5,7 +5,6 @@ Extended Threat Intelligence Platform Scanning Workers
 
 from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 from typing import Optional, List, Dict
 import os
 from dotenv import load_dotenv
@@ -50,25 +49,9 @@ async def verify_token(x_api_token: str = Header(...)):
         raise HTTPException(status_code=401, detail="Invalid API token")
     return x_api_token
 
-# Pydantic models
-class ScanRequest(BaseModel):
-    domain: str
-    scan_id: int
-    options: Optional[Dict] = {}
-
-class ScanResponse(BaseModel):
-    success: bool
-    message: str
-    data: Optional[Dict] = None
-
-class HealthResponse(BaseModel):
-    status: str
-    workers: Dict[str, str]
-    version: str
-    timestamp: str
 
 # Health check endpoint
-@app.get("/health", response_model=HealthResponse)
+@app.get("/health")
 async def health_check():
     """Health check endpoint for worker status"""
     return {
@@ -87,9 +70,9 @@ async def health_check():
     }
 
 # Subdomain Enumeration Worker
-@app.post("/workers/subdomain/scan", response_model=ScanResponse)
+@app.post("/workers/subdomain/scan", )
 async def subdomain_scan(
-    request: ScanRequest,
+    request: Dict,
     token: str = Depends(verify_token)
 ):
     """
@@ -99,15 +82,15 @@ async def subdomain_scan(
         # TODO: Implement Amass subdomain enumeration
         # For now, return mock data
         subdomains = [
-            f"www.{request.domain}",
-            f"mail.{request.domain}",
-            f"ftp.{request.domain}",
-            f"admin.{request.domain}",
+            f"www.{request.get("domain")}",
+            f"mail.{request.get("domain")}",
+            f"ftp.{request.get("domain")}",
+            f"admin.{request.get("domain")}",
         ]
         
         # Send results back to Laravel
         await send_to_laravel("/api/v1/subdomains/store", {
-            "domain_id": request.scan_id,
+            "domain_id": request.get("scan_id"),
             "subdomains": subdomains
         })
         
@@ -124,9 +107,9 @@ async def subdomain_scan(
         }
 
 # Port Scanning Worker
-@app.post("/workers/port/scan", response_model=ScanResponse)
+@app.post("/workers/port/scan", )
 async def port_scan(
-    request: ScanRequest,
+    request: Dict,
     token: str = Depends(verify_token)
 ):
     """
@@ -154,9 +137,9 @@ async def port_scan(
         }
 
 # Technology Detection Worker
-@app.post("/workers/tech/detect", response_model=ScanResponse)
+@app.post("/workers/tech/detect", )
 async def tech_detect(
-    request: ScanRequest,
+    request: Dict,
     token: str = Depends(verify_token)
 ):
     """
@@ -182,9 +165,9 @@ async def tech_detect(
         }
 
 # Vulnerability Scanning Worker
-@app.post("/workers/vuln/scan", response_model=ScanResponse)
+@app.post("/workers/vuln/scan", )
 async def vuln_scan(
-    request: ScanRequest,
+    request: Dict,
     token: str = Depends(verify_token)
 ):
     """
@@ -214,9 +197,9 @@ async def vuln_scan(
         }
 
 # Screenshot Worker
-@app.post("/workers/screenshot/capture", response_model=ScanResponse)
+@app.post("/workers/screenshot/capture", )
 async def screenshot_capture(
-    request: ScanRequest,
+    request: Dict,
     token: str = Depends(verify_token)
 ):
     """
@@ -224,7 +207,7 @@ async def screenshot_capture(
     """
     try:
         # TODO: Implement screenshot capture
-        screenshot_path = f"/screenshots/{request.domain}.png"
+        screenshot_path = f"/screenshots/{request.get("domain")}.png"
         
         return {
             "success": True,
@@ -239,9 +222,9 @@ async def screenshot_capture(
         }
 
 # Dark Web Scraper Worker
-@app.post("/workers/darkweb/scrape", response_model=ScanResponse)
+@app.post("/workers/darkweb/scrape", )
 async def darkweb_scrape(
-    request: ScanRequest,
+    request: Dict,
     token: str = Depends(verify_token)
 ):
     """
@@ -264,9 +247,9 @@ async def darkweb_scrape(
         }
 
 # Breach Data Crawler Worker
-@app.post("/workers/breach/check", response_model=ScanResponse)
+@app.post("/workers/breach/check", )
 async def breach_check(
-    request: ScanRequest,
+    request: Dict,
     token: str = Depends(verify_token)
 ):
     """
