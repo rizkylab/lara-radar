@@ -16,10 +16,19 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Core seeders
+        $this->call([
+            \Database\Seeders\CompanySeeder::class,
+            \Database\Seeders\DomainSeeder::class,
+            \Database\Seeders\SubdomainSeeder::class,
+            \Database\Seeders\PortSeeder::class,
+            \Database\Seeders\TechStackSeeder::class,
+            \Database\Seeders\VulnerabilitySeeder::class,
+            \Database\Seeders\CVESeeder::class,
+            \Database\Seeders\DarkWebSeeder::class,
+            \Database\Seeders\BotnetSeeder::class,
+            \Database\Seeders\PiiSeeder::class,
+            \Database\Seeders\AlertSeeder::class,
         ]);
     }
 }

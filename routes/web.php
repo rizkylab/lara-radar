@@ -27,15 +27,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->n
 // Protected routes
 Route::middleware(['auth'])->group(function () {
     // Dashboard
-    Route::get('/dashboard', function () {
-        $stats = [
-            'domains' => 25,
-            'subdomains' => 342,
-            'ports' => 1205,
-            'vulnerabilities' => 47
-        ];
-        return view('dashboard.index', compact('stats'));
-    })->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     // Domains
     Route::get('/domains', function () {
