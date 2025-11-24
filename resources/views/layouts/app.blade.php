@@ -14,6 +14,53 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
 
     @stack('styles')
+
+    <style>
+        /* Hero left panel for reference layout */
+        .page-hero-wrap {
+            min-height: 520px;
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+        }
+        .page-hero-left {
+            flex: 1 1 55%;
+            background: linear-gradient(135deg,#0f1724 0%, #292b45 60%);
+            color: #fff;
+            padding: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+        .page-hero-left .hero-graphic {
+            width: 80%;
+            max-width: 680px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+        }
+        .page-hero-right {
+            flex: 0 0 45%;
+            background: #f8f9fb;
+            padding: 2.5rem;
+            display:flex;
+            align-items:center;
+        }
+        .page-hero-card {
+            width:100%;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+        @media (max-width: 992px) {
+            .page-hero-left { display:none; }
+            .page-hero-right { flex:1 1 100%; padding:1rem; }
+            .page-hero-wrap { min-height: auto; }
+        }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -40,10 +87,22 @@
             </div>
         </section>
 
-        <!-- Main content -->
+        <!-- Main content (wrapped inside hero reference layout) -->
         <section class="content">
             <div class="container-fluid">
-                @yield('content')
+                <div class="page-hero-wrap">
+                    <div class="page-hero-left d-none d-lg-flex">
+                        <div class="hero-graphic">
+                            {{-- Decorative graphic: You can replace with `public/hero.png` or inline SVG --}}
+                            <img src="{{ asset('mazer-hero.png') }}" alt="Hero" class="img-fluid hero-graphic" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                    <div class="page-hero-right">
+                        <div class="page-hero-card">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>
