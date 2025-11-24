@@ -80,7 +80,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Threat Hunting
     Route::get('/threat-hunting', function () {
-        return view('threat-hunting.index');
+        // view file is resources/views/threats/index.blade.php
+        return view('threats.index');
     })->name('threat-hunting.index');
 
     // Alerts
